@@ -203,6 +203,16 @@ spec:
       annotations:
         summary: 'All Kafka Mirror Maker containers down or in CrashLookBackOff status'
         description: 'All Kafka Mirror Maker containers have been down or in CrashLookBackOff status for 3 minutes'
+  - name: mirrorMaker2
+    rules:
+    - alert: MirrorMaker2ContainerDown
+      expr: absent(container_last_seen{container_name=~".+-mirrormaker2",kubernetes_pod_name=~".+-mirrormaker2-.+"})
+      for: 3m
+      labels:
+        severity: major
+      annotations:
+        summary: 'All Kafka Mirror Maker 2 containers down or in CrashLookBackOff status'
+        description: 'All Kafka Mirror Maker 2 containers have been down or in CrashLookBackOff status for 3 minutes'
   - name: kafkaExporter
     rules:
     - alert: UnderReplicatedPartition
